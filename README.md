@@ -4,7 +4,53 @@ A sophisticated React + Vite project featuring a comprehensive design system wit
 
 ## ✨ Key Features
 
-- **🎨 Dynamic Theme System**: Multiple pre-built themes with real-time switching
+- **🎨 D## 🚀 Deployment
+
+### Live Demo
+🌐 **[View Live Demo](https://pepperumo.github.io/website-designs/)**
+
+### Automatic GitHub Pages Deployment
+This project is automatically deployed to GitHub Pages using GitHub Actions:
+
+- **Trigger**: Every push to the `main` branch
+- **Build Process**: Automated via GitHub Actions workflow
+- **URL**: `https://pepperumo.github.io/website-designs/`
+
+### Manual Deployment Options
+
+#### GitHub Pages (Recommended)
+1. **Enable GitHub Pages** in repository settings:
+   - Go to Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: `gh-pages` / `(root)`
+
+2. **Automatic deployment** via GitHub Actions (already configured)
+   - Push to `main` branch triggers deployment
+   - Build artifacts uploaded to `gh-pages` branch
+
+#### Manual GitHub Pages Deployment
+```bash
+# Install dependencies
+npm install
+
+# Install gh-pages if not already installed
+npm install --save-dev gh-pages
+
+# Build and deploy
+npm run deploy
+```
+
+### Production Build
+```bash
+npm run build
+```
+Optimized files will be generated in the `dist/` directory.
+
+### Alternative Deployment Options
+- **Vercel**: Zero-configuration deployment with automatic previews
+- **Netlify**: Continuous deployment with form handling
+- **AWS S3**: Scalable static hosting with CloudFront CDN
+- **Firebase Hosting**: Google's hosting platform with CDNSystem**: Multiple pre-built themes with real-time switching
 - **🔧 Advanced Customization**: Shape variants, 3D effects, typography options, and shadow styles
 - **📱 Responsive Design**: Optimized for all screen sizes and devices
 - **🎯 Accessibility First**: High contrast support, reduced motion preferences, and keyboard navigation
