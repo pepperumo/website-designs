@@ -1,21 +1,23 @@
 import { themes } from '../themes';
 import { useState, useEffect } from 'react';
 
-// Import product images
-// Note: These images need to be saved manually from the provided attachments
-// with the exact filenames: harness.jpg, restraints.jpg, collar.jpg, toys.jpg
+// Use public assets for better GitHub Pages compatibility
+const getImagePath = (imageName) => {
+  const base = import.meta.env.BASE_URL || '/';
+  return `${base}images/${imageName}`;
+};
 
 const productImages = {
-  harness: '/src/assets/images/harness.jpg',
-  restraints: '/src/assets/images/restraints.jpg',
-  collar: '/src/assets/images/collar.jpg',
-  toys: '/src/assets/images/toys.jpg',
+  harness: getImagePath('harness.jpg'),
+  restraints: getImagePath('restraints.jpg'),
+  collar: getImagePath('collar.jpg'),
+  toys: getImagePath('toys.jpg'),
 };
 
 // Event banner images
 const eventBanners = [
-  '/src/assets/images/event_1.jpg',
-  '/src/assets/images/event_2.jpg',
+  getImagePath('event_1.jpg'),
+  getImagePath('event_2.jpg'),
 ];
 
 const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
