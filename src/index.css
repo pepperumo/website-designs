@@ -1,0 +1,644 @@
+/* Google Fonts imports for typography customization */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Default theme CSS variables - these will be overridden by theme settings */
+    --color-canvas: #0B0B11;
+    --color-surface: #1A1A22;
+    --color-surface-hover: #242432;
+    --color-accent-1: #E000B8;
+    --color-accent-2: #4F00FF;
+    --color-accent-3: #00D4FF;
+    --color-accent-4: #FF006B;
+    --color-accent-5: #9D00FF;
+    --color-text: #F0F0F0;
+    --color-text-muted: #B8B8C0;
+    --color-text-dim: #808090;
+    --color-border: #2A2A38;
+    --color-success: #00FF88;
+    --color-warning: #FFB800;
+    --color-danger: #FF3860;
+    /* Radius setting */
+    --radius: 1rem;
+    /* Effect options */
+    --shadow-color: rgba(224, 0, 184, 0.3); /* Default shadow color */
+    --shadow-depth: 20px;
+    --shadow-spread: 5px;
+    --shadow-offset-x: 0;
+    --shadow-offset-y: 0;
+    --shadow-inset: ''; /* For inner shadows */
+    --gradient-angle: 135deg;
+  }
+
+  /* Theme utility class definitions */
+  body {
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--color-canvas);
+    color: var(--color-text);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  /* Layout colors */
+  .bg-canvas { background-color: var(--color-canvas) !important; }
+  .bg-canvas\/70 { background-color: rgba(var(--color-canvas-rgb, 11, 11, 17), 0.7) !important; }
+  .bg-canvas\/90 { background-color: rgba(var(--color-canvas-rgb, 11, 11, 17), 0.9) !important; }
+  .bg-surface { background-color: var(--color-surface) !important; }
+  .bg-surface-hover { background-color: var(--color-surface-hover) !important; }
+  
+  /* Text colors */
+  .text-text { color: var(--color-text) !important; }
+  .text-text\/80 { color: rgba(var(--color-text-rgb, 240, 240, 240), 0.8) !important; }
+  .text-text-muted { color: var(--color-text-muted) !important; }
+  .text-text-dim { color: var(--color-text-dim) !important; }
+  
+  /* Border styles */
+  .border-border { border-color: var(--color-border) !important; }
+  
+  /* Accent colors */
+  .bg-accent1 { background-color: var(--color-accent-1) !important; }
+  .bg-accent2 { background-color: var(--color-accent-2) !important; }
+  .bg-accent3 { background-color: var(--color-accent-3) !important; }
+  .bg-accent4 { background-color: var(--color-accent-4) !important; }
+  .bg-accent5 { background-color: var(--color-accent-5) !important; }
+  
+  .text-accent1 { color: var(--color-accent-1) !important; }
+  .text-accent2 { color: var(--color-accent-2) !important; }
+  .text-accent3 { color: var(--color-accent-3) !important; }
+  .text-accent4 { color: var(--color-accent-4) !important; }
+  .text-accent5 { color: var(--color-accent-5) !important; }
+  
+  .border-accent1 { border-color: var(--color-accent-1) !important; }
+  .border-accent2 { border-color: var(--color-accent-2) !important; }
+  .border-accent3 { border-color: var(--color-accent-3) !important; }
+  .border-accent4 { border-color: var(--color-accent-4) !important; }
+  .border-accent5 { border-color: var(--color-accent-5) !important; }
+  
+  /* Status colors */
+  .bg-success { background-color: var(--color-success) !important; }
+  .bg-warning { background-color: var(--color-warning) !important; }
+  .bg-danger { background-color: var(--color-danger) !important; }
+  
+  .text-success { color: var(--color-success) !important; }
+  .text-warning { color: var(--color-warning) !important; }
+  .text-danger { color: var(--color-danger) !important; }
+  
+  /* Hover states */
+  .hover\:bg-surface-hover:hover { background-color: var(--color-surface-hover) !important; }
+  .hover\:text-accent1:hover { color: var(--color-accent-1) !important; }
+  .hover\:text-accent2:hover { color: var(--color-accent-2) !important; }
+  .hover\:text-accent3:hover { color: var(--color-accent-3) !important; }
+  .hover\:border-accent1:hover { border-color: var(--color-accent-1) !important; }
+  .hover\:border-accent2:hover { border-color: var(--color-accent-2) !important; }
+  .hover\:border-accent3:hover { border-color: var(--color-accent-3) !important; }
+
+  /* Scale transform effects for consistent button interactions */
+  .hover\:scale-95:hover { transform: scale(0.95); }
+  .hover\:scale-105:hover { transform: scale(1.05); }
+
+  /* Corner Radius */
+  .rounded-theme { border-radius: var(--radius) !important; }
+  .rounded-pill { border-radius: calc(var(--radius) * 2.5) !important; }
+  .rounded-angular { border-radius: calc(var(--radius) * 0.3) !important; }
+  .rounded-organic { border-radius: var(--radius) calc(var(--radius) * 1.2) !important; }
+  .rounded-asymmetric { border-radius: var(--radius) calc(var(--radius) * 0.6) calc(var(--radius) * 1.4) var(--radius) !important; }
+
+  /* Advanced Shape Classes using CSS clip-path and custom border-radius */
+  
+  /* Artistic Shapes */
+  .shape-blob {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  
+  .shape-morphic {
+    border-radius: 50% 20% 80% 30% / 40% 70% 30% 60%;
+    transform: rotate(-2deg);
+  }
+  
+  /* Modern Shapes */
+  .shape-squircle {
+    border-radius: calc(var(--radius) * 2.5);
+    /* Enhanced squircle using CSS custom properties */
+    --squircle-radius: calc(var(--radius) * 1.8);
+    border-radius: var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) / var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) var(--squircle-radius);
+  }
+  
+  .shape-chamfer {
+    clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+  }
+  
+  .shape-rounded-plus {
+    border-radius: var(--radius) calc(var(--radius) * 2) calc(var(--radius) * 1.5) calc(var(--radius) * 0.5);
+  }
+
+  /* Enhanced hover effects for interactive shapes */
+  [data-shape-type="morphic"] .rounded-theme:hover {
+    border-radius: 30% 70% 20% 80% / 50% 40% 60% 50%;
+    transition: border-radius 0.5s ease;
+  }
+  
+  [data-shape-type="blob"] .rounded-theme:hover {
+    border-radius: 40% 60% 70% 30% / 50% 40% 60% 50%;
+    transition: border-radius 0.5s ease;
+  }
+
+  /* Additional responsive considerations for complex shapes */
+  @media (max-width: 640px) {
+    .shape-ticket::before,
+    .shape-ticket::after {
+      width: 15px;
+      height: 15px;
+    }
+    
+    .shape-ticket::before {
+      left: -7.5px;
+    }
+    
+    .shape-ticket::after {
+      right: -7.5px;
+    }
+    
+    [data-shape-type="chamfer"] .rounded-theme {
+      clip-path: polygon(6px 0%, 100% 0%, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0% 100%, 0% 6px);
+    }
+  }
+
+  /* Data attribute selectors for shape types */
+  [data-shape-type="blob"] .rounded-theme {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  
+  [data-shape-type="morphic"] .rounded-theme {
+    border-radius: 50% 20% 80% 30% / 40% 70% 30% 60%;
+    transform: rotate(-2deg);
+  }
+  
+  [data-shape-type="squircle"] .rounded-theme {
+    --squircle-radius: calc(var(--radius) * 1.8);
+    border-radius: var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) / var(--squircle-radius) var(--squircle-radius) var(--squircle-radius) var(--squircle-radius);
+  }
+  
+  [data-shape-type="chamfer"] .rounded-theme {
+    clip-path: polygon(8px 0%, 100% 0%, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0% 100%, 0% 8px);
+  }
+  
+  [data-shape-type="rounded-plus"] .rounded-theme {
+    border-radius: var(--radius) calc(var(--radius) * 2) calc(var(--radius) * 1.5) calc(var(--radius) * 0.5);
+  }
+
+  /* Fallback styles for complex shapes on smaller elements */
+  .rounded-theme {
+    overflow: hidden; /* Ensures clip-path works consistently */
+    position: relative;
+  }
+  
+  /* Ensure shapes work well with buttons */
+  button.rounded-theme,
+  .btn.rounded-theme {
+    border: none;
+    outline: none;
+  }
+  
+  button.rounded-theme:focus,
+  .btn.rounded-theme:focus {
+    outline: 2px solid var(--color-accent-1);
+    outline-offset: 2px;
+  }
+  
+  /* Ensure ticket shape pseudo-elements are behind content */
+  [data-shape-type="morphic"] .rounded-theme,
+  [data-shape-type="blob"] .rounded-theme {
+    will-change: border-radius;
+  }
+  
+  /* Enhanced accessibility for complex shapes */
+  @media (prefers-reduced-motion: reduce) {
+    [data-shape-type] .rounded-theme,
+    [data-shape-type] .rounded-theme:hover {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+  
+  /* High contrast mode considerations */
+  @media (prefers-contrast: high) {
+    [data-shape-type] .rounded-theme {
+      border: 2px solid;
+    }
+  }
+
+  /* 3D Effect Classes */
+  .effect-3d-none {
+    /* Flat design - no 3D effects */
+    box-shadow: none;
+    transform: none;
+  }
+  
+  .effect-3d-raised {
+    /* Elevated appearance with subtle depth */
+    transform: translateY(-2px);
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .effect-3d-raised:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+      0 8px 16px rgba(0, 0, 0, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 0 20px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.15);
+  }
+  
+  .effect-3d-pressed {
+    /* Inset/pressed button effect */
+    transform: translateY(1px);
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.3),
+      inset 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+  
+  .effect-3d-pressed:hover {
+    transform: translateY(0px);
+    box-shadow: 
+      inset 0 1px 2px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .effect-3d-floating {
+    /* Dramatic elevation with larger shadows */
+    transform: translateY(-4px);
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.25),
+      0 6px 12px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.2);
+    transition: all 0.4s ease;
+  }
+  
+  .effect-3d-floating:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 10px 20px rgba(0, 0, 0, 0.2),
+      0 0 40px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.3);
+  }
+  
+  .effect-3d-beveled {
+    /* Angled edges with highlight/shadow gradients */
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 
+      inset 1px 1px 0 rgba(255, 255, 255, 0.2),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .effect-3d-beveled::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-accent-1);
+    opacity: 0.1;
+    border-radius: inherit;
+    z-index: -1;
+  }
+  
+  .effect-3d-beveled:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      inset 2px 2px 0 rgba(255, 255, 255, 0.3),
+      inset -2px -2px 0 rgba(0, 0, 0, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .effect-3d-beveled:hover::before {
+    opacity: 0.2;
+  }
+  
+  .effect-3d-extruded {
+    /* Deep 3D extrusion effect */
+    position: relative;
+    transform: translateY(-3px);
+    box-shadow: 
+      0 1px 0 var(--color-accent-2),
+      0 2px 0 var(--color-accent-2),
+      0 3px 0 var(--color-accent-2),
+      0 4px 0 var(--color-accent-2),
+      0 5px 0 var(--color-accent-2),
+      0 6px 0 var(--color-accent-2),
+      0 7px 0 var(--color-accent-2),
+      0 8px 0 var(--color-accent-2),
+      0 9px 8px rgba(0, 0, 0, 0.2),
+      0 12px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+  
+  .effect-3d-extruded:hover {
+    transform: translateY(-1px);
+    box-shadow: 
+      0 1px 0 var(--color-accent-2),
+      0 2px 0 var(--color-accent-2),
+      0 3px 0 var(--color-accent-2),
+      0 4px 0 var(--color-accent-2),
+      0 5px 0 var(--color-accent-2),
+      0 6px 8px rgba(0, 0, 0, 0.15),
+      0 8px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Data attribute selectors for 3D effects */
+  [data-effect-3d="none"] .rounded-theme {
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  
+  [data-effect-3d="raised"] .rounded-theme {
+    transform: translateY(-2px) !important;
+    box-shadow: 
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  [data-effect-3d="raised"] .rounded-theme:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 
+      0 8px 16px rgba(0, 0, 0, 0.2),
+      0 4px 8px rgba(0, 0, 0, 0.15),
+      0 0 20px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.15) !important;
+  }
+  
+  [data-effect-3d="pressed"] .rounded-theme {
+    transform: translateY(1px) !important;
+    box-shadow: 
+      inset 0 2px 4px rgba(0, 0, 0, 0.3),
+      inset 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  [data-effect-3d="pressed"] .rounded-theme:hover {
+    transform: translateY(0px) !important;
+    box-shadow: 
+      inset 0 1px 2px rgba(0, 0, 0, 0.2),
+      0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  [data-effect-3d="floating"] .rounded-theme {
+    transform: translateY(-4px) !important;
+    box-shadow: 
+      0 12px 24px rgba(0, 0, 0, 0.25),
+      0 6px 12px rgba(0, 0, 0, 0.15),
+      0 0 30px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.2) !important;
+  }
+  
+  [data-effect-3d="floating"] .rounded-theme:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.3),
+      0 10px 20px rgba(0, 0, 0, 0.2),
+      0 0 40px rgba(var(--color-accent-1-rgb, 224, 0, 184), 0.3) !important;
+  }
+  
+  [data-effect-3d="beveled"] .rounded-theme {
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.1) 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 100%) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    box-shadow: 
+      inset 1px 1px 0 rgba(255, 255, 255, 0.2),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  [data-effect-3d="beveled"] .rounded-theme::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--color-accent-1);
+    opacity: 0.1;
+    border-radius: inherit;
+    z-index: -1;
+  }
+  
+  [data-effect-3d="beveled"] .rounded-theme:hover {
+    border-color: rgba(255, 255, 255, 0.25) !important;
+    box-shadow: 
+      inset 2px 2px 0 rgba(255, 255, 255, 0.3),
+      inset -2px -2px 0 rgba(0, 0, 0, 0.3),
+      0 4px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  [data-effect-3d="beveled"] .rounded-theme:hover::before {
+    opacity: 0.2;
+  }
+  
+  [data-effect-3d="extruded"] .rounded-theme {
+    position: relative;
+    transform: translateY(-3px) !important;
+    box-shadow: 
+      0 1px 0 var(--color-accent-2),
+      0 2px 0 var(--color-accent-2),
+      0 3px 0 var(--color-accent-2),
+      0 4px 0 var(--color-accent-2),
+      0 5px 0 var(--color-accent-2),
+      0 6px 0 var(--color-accent-2),
+      0 7px 0 var(--color-accent-2),
+      0 8px 0 var(--color-accent-2),
+      0 9px 8px rgba(0, 0, 0, 0.2),
+      0 12px 15px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  [data-effect-3d="extruded"] .rounded-theme:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 
+      0 1px 0 var(--color-accent-2),
+      0 2px 0 var(--color-accent-2),
+      0 3px 0 var(--color-accent-2),
+      0 4px 0 var(--color-accent-2),
+      0 5px 0 var(--color-accent-2),
+      0 6px 8px rgba(0, 0, 0, 0.15),
+      0 8px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Debug styles to verify 3D effects are being applied */
+  [data-effect-3d="raised"] {
+    --debug-3d-effect: "raised" !important;
+  }
+  
+  [data-effect-3d="pressed"] {
+    --debug-3d-effect: "pressed" !important;
+  }
+  
+  [data-effect-3d="floating"] {
+    --debug-3d-effect: "floating" !important;
+  }
+  
+  [data-effect-3d="beveled"] {
+    --debug-3d-effect: "beveled" !important;
+  }
+  
+  [data-effect-3d="extruded"] {
+    --debug-3d-effect: "extruded" !important;
+  }
+
+  /* Missing Shadow Theme Classes */
+  .shadow-theme-soft {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+  
+  .shadow-theme-classic {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .shadow-theme-neon {
+    box-shadow: 0 0 20px var(--color-accent-1), 0 0 40px rgba(224, 0, 184, 0.4);
+  }
+  
+  .shadow-theme-inner {
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .shadow-theme-harsh {
+    box-shadow: 8px 8px 0px var(--color-accent-2);
+  }
+  
+  /* Missing Gradient Background Classes */
+  .bg-gradient-linear {
+    background: linear-gradient(var(--gradient-angle, 135deg), 
+      var(--color-accent-1) 0%, 
+      var(--color-accent-2) 35%, 
+      var(--color-accent-3) 70%, 
+      var(--color-accent-1) 100%);
+    color: #FFFFFF;
+  }
+  
+  .bg-gradient-radial {
+    background: radial-gradient(circle at center, 
+      var(--color-accent-1) 0%, 
+      var(--color-accent-2) 35%, 
+      var(--color-accent-3) 70%, 
+      var(--color-accent-1) 100%);
+    color: #FFFFFF;
+  }
+  
+  .bg-gradient-duotone {
+    background: linear-gradient(var(--gradient-angle, 135deg), 
+      var(--color-accent-1) 0%, 
+      var(--color-accent-2) 100%);
+    color: #FFFFFF;
+  }
+
+  /* Enhanced gradient hover effects */
+  .bg-gradient-linear:hover {
+    background: linear-gradient(var(--gradient-angle, 135deg), 
+      var(--color-accent-2) 0%, 
+      var(--color-accent-3) 35%, 
+      var(--color-accent-4) 70%, 
+      var(--color-accent-2) 100%);
+    color: #FFFFFF;
+    transition: background 0.3s ease;
+  }
+  
+  .bg-gradient-radial:hover {
+    background: radial-gradient(circle at center, 
+      var(--color-accent-2) 0%, 
+      var(--color-accent-3) 35%, 
+      var(--color-accent-4) 70%, 
+      var(--color-accent-2) 100%);
+    color: #FFFFFF;
+    transition: background 0.3s ease;
+  }
+  
+  .bg-gradient-duotone:hover {
+    background: linear-gradient(var(--gradient-angle, 135deg), 
+      var(--color-accent-2) 0%, 
+      var(--color-accent-3) 100%);
+    color: #FFFFFF;
+    transition: background 0.3s ease;
+  }
+
+  /* Shadow hover effects */
+  .shadow-theme-neon:hover {
+    box-shadow: 0 0 30px var(--color-accent-1), 0 0 60px rgba(224, 0, 184, 0.6);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .shadow-theme-soft:hover {
+    box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.15), 0 4px 8px -2px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .shadow-theme-classic:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
+
+  /* Responsive shadow adjustments */
+  @media (max-width: 640px) {
+    .shadow-theme-neon {
+      box-shadow: 0 0 15px var(--color-accent-1), 0 0 30px rgba(224, 0, 184, 0.3);
+    }
+    
+    .shadow-theme-harsh {
+      box-shadow: 4px 4px 0px var(--color-accent-2);
+    }
+  }
+
+  /* Additional gradient text effects */
+  .text-gradient {
+    background: linear-gradient(var(--gradient-angle, 135deg), 
+      var(--color-accent-1), var(--color-accent-2), var(--color-accent-3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Font family utility classes */
+  .font-inter { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important; }
+  .font-roboto { font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif !important; }
+  .font-playfair { font-family: 'Playfair Display', Georgia, serif !important; }
+  .font-source-code { font-family: 'Source Code Pro', monospace !important; }
+  .font-crimson { font-family: 'Crimson Text', Georgia, serif !important; }
+  .font-work-sans { font-family: 'Work Sans', sans-serif !important; }
+  .font-space-grotesk { font-family: 'Space Grotesk', sans-serif !important; }
+  .font-fira-code { font-family: 'Fira Code', monospace !important; }
+
+  /* Dynamic font application via CSS custom properties */
+  [data-font-type="inter"] { font-family: var(--font-primary, 'Inter', system-ui, sans-serif) !important; }
+  [data-font-type="roboto"] { font-family: var(--font-primary, 'Roboto', sans-serif) !important; }
+  [data-font-type="playfair"] { font-family: var(--font-primary, 'Playfair Display', serif) !important; }
+  [data-font-type="source-code"] { font-family: var(--font-primary, 'Source Code Pro', monospace) !important; }
+  [data-font-type="crimson"] { font-family: var(--font-primary, 'Crimson Text', serif) !important; }
+  [data-font-type="work-sans"] { font-family: var(--font-primary, 'Work Sans', sans-serif) !important; }
+  [data-font-type="space-grotesk"] { font-family: var(--font-primary, 'Space Grotesk', sans-serif) !important; }
+  [data-font-type="fira-code"] { font-family: var(--font-primary, 'Fira Code', monospace) !important; }
+
+  /* Ensure backdrop-blur is available */
+  .backdrop-blur-subtle {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+}
