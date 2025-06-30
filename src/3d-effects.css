@@ -1,0 +1,18 @@
+/* 3D Effect Utility Classes for ThemeSidebar Preview */
+.effect-3d-raised {
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.18), 0 1.5px 0 0 var(--tw-shadow-color, #fff2);
+}
+.effect-3d-pressed {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.22), 0 1.5px 0 0 var(--tw-shadow-color, #fff2);
+}
+.effect-3d-floating {
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.28), 0 0 8px 2px var(--tw-shadow-color, #aaf8);
+}
+.effect-3d-beveled {
+  box-shadow: 0 2px 0 0 #fff4, 0 0 0 2px #0002, 0 4px 12px 0 rgba(0,0,0,0.12);
+  border: 1.5px solid #fff3;
+}
+.effect-3d-extruded {
+  box-shadow: 0 12px 32px 0 rgba(0,0,0,0.38), 0 2px 0 0 #fff2, 0 0 0 3px #0003;
+  border: 2px solid #fff2;
+}

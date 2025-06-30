@@ -412,84 +412,10 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
                 </div>
 
                 {/* Artistic Shapes */}
-                <div className="mb-4">
-                  <h5 className="text-xs text-text-muted mb-2 font-medium flex items-center gap-2">
-                    <span className="inline-block w-3 h-3 bg-accent4 rounded"></span>
-                    🎨 Artistic Shapes
-                  </h5>
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Blob', value: 'blob', desc: 'Irregular organic shapes', icon: '🫧' },
-                      { label: 'Morphic', value: 'morphic', desc: 'Flowing, liquid-like borders', icon: '💧' }
-                    ].map(option => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleShapeChange(option.value)}
-                        className={`w-full p-3 text-left rounded border transition-all duration-300 hover:scale-95 ${
-                          customizations.shape === option.value
-                            ? 'border-accent1 bg-accent1/20 text-accent1'
-                            : 'border-border text-text hover:border-accent2 hover:bg-surface-hover'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-accent4 text-lg">{option.icon}</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-sm">{option.label}</div>
-                            <div className="text-xs text-text-muted">{option.desc}</div>
-                          </div>
-                          <div className="w-6 h-6 bg-accent4/30 border border-accent4/50 transition-all duration-300" 
-                               style={{ 
-                                 borderRadius: option.value === 'blob' ? '60% 40% 30% 70% / 60% 30% 70% 40%' :
-                                             option.value === 'morphic' ? '50% 20% 80% 30% / 40% 70% 30% 60%' : '0.25rem',
-                                 transform: option.value === 'morphic' ? 'rotate(-2deg)' : 'none'
-                               }}></div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                {/* Artistic Shapes removed */}
 
                 {/* Modern Shapes */}
-                <div className="mb-4">
-                  <h5 className="text-xs text-text-muted mb-2 font-medium flex items-center gap-2">
-                    <span className="inline-block w-3 h-3 bg-accent1 rounded"></span>
-                    ✨ Modern Shapes
-                  </h5>
-                  <div className="space-y-2">
-                    {[
-                      { label: 'Squircle', value: 'squircle', desc: 'Perfect blend square + circle', icon: '⬜' },
-                      { label: 'Chamfer', value: 'chamfer', desc: 'Beveled corners (45° cuts)', icon: '⧄' },
-                      { label: 'Rounded Plus', value: 'rounded-plus', desc: 'Different radius each corner', icon: '➕' },
-                      { label: 'Teardrop', value: 'teardrop', desc: 'Asymmetric droplet shape', icon: '💧' }
-                    ].map(option => (
-                      <button
-                        key={option.value}
-                        onClick={() => handleShapeChange(option.value)}
-                        className={`w-full p-3 text-left rounded border transition-all duration-300 hover:scale-95 ${
-                          customizations.shape === option.value
-                            ? 'border-accent1 bg-accent1/20 text-accent1'
-                            : 'border-border text-text hover:border-accent2 hover:bg-surface-hover'
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-accent1 text-lg">{option.icon}</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-sm">{option.label}</div>
-                            <div className="text-xs text-text-muted">{option.desc}</div>
-                          </div>
-                          <div className={`w-6 h-6 bg-accent1/30 border border-accent1/50 transition-all duration-300 ${option.value === 'teardrop' ? 'rounded-tl-full rounded-tr-none rounded-bl-full rounded-br-full' : ''}`}
-                               style={{ 
-                                 borderRadius: option.value === 'squircle' ? '1rem 1rem 1rem 1rem' :
-                                             option.value === 'rounded-plus' ? '0.25rem 0.5rem 0.375rem 0.125rem' : 
-                                             option.value === 'teardrop' ? '50% 0 50% 50%' : '0.25rem',
-                                 clipPath: option.value === 'chamfer' ? 'polygon(3px 0%, 100% 0%, 100% calc(100% - 3px), calc(100% - 3px) 100%, 0% 100%, 0% 3px)' : 'none',
-                                 transform: option.value === 'teardrop' ? 'rotate(45deg)' : 'none'
-                               }}></div>
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
+                {/* Modern Shapes removed */}
               </div>
             )}
 
