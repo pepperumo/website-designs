@@ -80,7 +80,7 @@ export const themes = {
       pattern: 'subtle',
       // New advanced effects
       shadow: 'neon',        // Options: classic, neon, soft, inner, harsh, none
-      gradient: 'radial',    // Options: linear, radial, duotone, none
+      gradient: 'linear',    // Options: linear, radial, duotone, none
       shape: 'standard',     // Options: standard, pill, angular, organic, asymmetric
     },
     typography: {

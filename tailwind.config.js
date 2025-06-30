@@ -12,5 +12,7 @@ module.exports = {
       ...theme,
     },
   },
-  plugins: [],
+  plugins: [
+    // require('tailwindcss-neumorphism'),
+  ],
 };

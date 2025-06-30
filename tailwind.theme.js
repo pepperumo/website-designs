@@ -49,8 +49,8 @@ module.exports = {
     'theme-harsh': '8px 8px 0px var(--color-accent-2)',
   },
   backgroundImage: {
-    'gradient-linear': 'linear-gradient(var(--gradient-angle, 135deg), var(--color-accent-1) 0%, var(--color-accent-2) 35%, var(--color-accent-3) 70%, var(--color-accent-1) 100%)',
-    'gradient-radial': 'radial-gradient(circle at center, var(--color-accent-1) 0%, var(--color-accent-2) 35%, var(--color-accent-3) 70%, var(--color-accent-1) 100%)',
+    'gradient-linear': 'linear-gradient(var(--gradient-angle, 135deg), var(--color-accent-1) 0%, var(--color-accent-2) 30%, var(--color-accent-3) 70%, var(--color-accent-1) 100%)',
+    'gradient-radial': 'radial-gradient(circle at center, var(--color-accent-1) 0%, var(--color-accent-2) 100%, transparent 100%)',
     'gradient-duotone': 'linear-gradient(var(--gradient-angle, 135deg), var(--color-accent-1) 0%, var(--color-accent-2) 100%)',
   },
   spacing: {

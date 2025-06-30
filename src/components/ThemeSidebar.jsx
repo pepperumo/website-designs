@@ -4,7 +4,6 @@ import {
   applyCustomShape, 
   applyCustomShadow, 
   applyCustomGradient, 
-  applyCustom3DEffect,
   applyCustomFont,
   swapAccentColors,
   getStoredCustomizations,
@@ -100,15 +99,6 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
         const newShape = shapes[nextShapeIndex];
         applyCustomShape(newShape);
         setCustomizations(prev => ({ ...prev, shape: newShape }));
-      } else if (event.key === '3' && event.ctrlKey && event.shiftKey) {
-        // Cycle through 3D effects
-        event.preventDefault();
-        const effects3d = ['none', 'raised', 'pressed', 'floating', 'beveled', 'extruded'];
-        const currentEffectIndex = effects3d.indexOf(customizations.effect3d || 'none');
-        const nextEffectIndex = currentEffectIndex === effects3d.length - 1 ? 0 : currentEffectIndex + 1;
-        const newEffect = effects3d[nextEffectIndex];
-        applyCustom3DEffect(newEffect);
-        setCustomizations(prev => ({ ...prev, effect3d: newEffect }));
       } else if (event.key === 'f' && event.ctrlKey && event.shiftKey) {
         // Cycle through fonts
         event.preventDefault();
@@ -123,7 +113,7 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
 
     window.addEventListener('keydown', handleKeyPress);
     return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentIndex, isOpen, customizations.shape, customizations.effect3d, customizations.fontType, setCustomizations]);
+  }, [currentIndex, isOpen, customizations.shape, customizations.fontType, setCustomizations]);
 
   // Customization handlers
   const handleRadiusChange = (radius) => {
@@ -146,10 +136,6 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
     setCustomizations(prev => ({ ...prev, gradient }));
   };
 
-  const handle3DEffectChange = (effect3d) => {
-    applyCustom3DEffect(effect3d);
-    setCustomizations(prev => ({ ...prev, effect3d }));
-  };
 
   const handleColorSwap = (colorSwap) => {
     swapAccentColors(colorSwap);
@@ -184,7 +170,7 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
     const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
     const randomShadow = shadows[Math.floor(Math.random() * shadows.length)];
     const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
-    const randomEffect3d = effects3d[Math.floor(Math.random() * effects3d.length)];
+    // const randomEffect3d = effects3d[Math.floor(Math.random() * effects3d.length)];
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
     const randomRadius = radiusOptions[Math.floor(Math.random() * radiusOptions.length)];
     const randomFont = fontOptions[Math.floor(Math.random() * fontOptions.length)];
@@ -199,7 +185,7 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
     handleShapeChange(randomShape);
     handleShadowChange(randomShadow);
     handleGradientChange(randomGradient);
-    handle3DEffectChange(randomEffect3d);
+    // handle3DEffectChange removed (3D effects no longer supported)
     handleColorSwap(randomColor);
     handleFontChange(randomFont);
 
@@ -209,7 +195,7 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
       shape: randomShape,
       shadow: randomShadow,
       gradient: randomGradient,
-      effect3d: randomEffect3d,
+      // effect3d: randomEffect3d, // 3D effects removed
       colorSwap: randomColor,
       fontType: randomFont
     });
@@ -304,7 +290,6 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
                 { id: 'shape', label: '🔷 Shape', icon: '◆' },
                 { id: 'shadow', label: '🌟 Shadow', icon: '✦' },
                 { id: 'gradient', label: '🌈 Gradient', icon: '▦' },
-                { id: '3d', label: '🧊 3D', icon: '◉' },
                 { id: 'fonts', label: '🔤 Fonts', icon: 'Aa' },
                 { id: 'colors', label: '🎨 Colors', icon: '◉' }
               ].map(tab => (
@@ -477,98 +462,6 @@ const ThemeSidebar = ({ isOpen, onClose, currentTheme, onThemeChange, setCurrent
               </div>
             )}
 
-            {/* 3D Effects Controls */}
-            {activeCustomTab === '3d' && (
-              <div className="space-y-3">
-                <h4 className="text-accent2 font-medium text-sm">3D Visual Effects</h4>
-                
-                
-                <div className="space-y-2">
-                  {[
-                    { 
-                      label: 'None', 
-                      value: 'none', 
-                      desc: 'Flat design with no 3D effects',
-                      icon: '⬜'
-                    },
-                  { 
-                    label: 'Raised', 
-                    value: 'raised', 
-                    desc: 'Subtle elevation with soft shadows',
-                    icon: '📦'
-                  },
-                  { 
-                    label: 'Pressed', 
-                    value: 'pressed', 
-                    desc: 'Inset appearance like pressed buttons',
-                    icon: '🔳'
-                  },
-                  { 
-                    label: 'Floating', 
-                    value: 'floating', 
-                    desc: 'Dramatic elevation with glow effects',
-                    icon: '🌟'
-                  },
-                  { 
-                    label: 'Beveled', 
-                    value: 'beveled', 
-                    desc: 'Angled edges with highlight gradients',
-                    icon: '💎'
-                  },
-                  { 
-                    label: 'Extruded', 
-                    value: 'extruded', 
-                    desc: 'Deep 3D extrusion with layered shadows',
-                    icon: '🧊'
-                  }
-                ].map(option => (
-                    <button
-                      key={option.value}
-                      onClick={() => handle3DEffectChange(option.value)}
-                      className={`w-full p-3 text-left rounded border transition-all duration-300 hover:scale-95 ${
-                        customizations.effect3d === option.value
-                          ? 'border-accent1 bg-accent1/20 text-accent1'
-                          : 'border-border text-text hover:border-accent2 hover:bg-surface-hover'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-lg">{option.icon}</span>
-                        <span className="font-medium text-sm">{option.label}</span>
-                      </div>
-                      <div className="text-xs text-text-muted">{option.desc}</div>
-                    </button>
-                  ))}
-                </div>
-                
-                {/* 3D Effect Preview */}
-                <div className="bg-surface/30 border border-border rounded p-4">
-                  <h5 className="text-accent3 font-medium text-xs mb-3">Live Preview</h5>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className={`bg-accent1 text-canvas rounded-theme p-3 text-center text-xs font-bold transition-all duration-300 ${
-                      customizations.effect3d === 'raised' ? 'effect-3d-raised' :
-                      customizations.effect3d === 'pressed' ? 'effect-3d-pressed' :
-                      customizations.effect3d === 'floating' ? 'effect-3d-floating' :
-                      customizations.effect3d === 'beveled' ? 'effect-3d-beveled' :
-                      customizations.effect3d === 'extruded' ? 'effect-3d-extruded' : ''
-                    }`}>
-                      Button
-                    </div>
-                    <div className={`bg-surface border border-accent2 rounded-theme p-3 text-center text-xs font-bold transition-all duration-300 ${
-                      customizations.effect3d === 'raised' ? 'effect-3d-raised' :
-                      customizations.effect3d === 'pressed' ? 'effect-3d-pressed' :
-                      customizations.effect3d === 'floating' ? 'effect-3d-floating' :
-                      customizations.effect3d === 'beveled' ? 'effect-3d-beveled' :
-                      customizations.effect3d === 'extruded' ? 'effect-3d-extruded' : ''
-                    }`}>
-                      Card
-                    </div>
-                  </div>
-                  <div className="mt-2 text-xs text-text-muted text-center">
-                    Current: {customizations.effect3d || 'none'}
-                  </div>
-                </div>
-              </div>
-            )}
 
             {/* Font Controls */}
             {activeCustomTab === 'fonts' && (

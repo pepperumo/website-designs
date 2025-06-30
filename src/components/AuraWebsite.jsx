@@ -1,5 +1,7 @@
 import { themes } from '../themes';
 import { useState, useEffect } from 'react';
+import { Dialog, DialogPanel } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
 // Use public assets for better GitHub Pages compatibility
 const getImagePath = (imageName) => {
@@ -20,14 +22,22 @@ const eventBanners = [
   getImagePath('event_2.jpg'),
 ];
 
+
+const navigation = [
+  { name: 'Marketplace', href: '#marketplace' },
+  { name: 'Events', href: '#events' },
+  { name: 'Our Ethos', href: '#about' },
+];
+
 const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
   const theme = themes[currentTheme];
   const [customOverrides, setCustomOverrides] = useState({
     shape: null,
     shadow: null,
     gradient: null,
-    fontType: null // Add font type override
+    fontType: null
   });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Listen for custom changes and update state to trigger re-render
   useEffect(() => {
@@ -36,7 +46,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
         shape: document.documentElement.dataset.shapeType,
         shadow: document.documentElement.dataset.shadowType,
         gradient: document.documentElement.dataset.gradientType,
-        effect3d: document.documentElement.getAttribute('data-effect-3d'),
+        // effect3d removed
         fontType: document.documentElement.getAttribute('data-font-type') // Add font type
       });
     };
@@ -51,7 +61,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
             (mutation.attributeName === 'data-shape-type' || 
              mutation.attributeName === 'data-shadow-type' || 
              mutation.attributeName === 'data-gradient-type' ||
-             mutation.attributeName === 'data-effect-3d' ||
+             // mutation.attributeName === 'data-effect-3d' ||
              mutation.attributeName === 'data-font-type')) { // Add font type
           updateCustomOverrides();
         }
@@ -60,7 +70,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
 
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['data-shape-type', 'data-shadow-type', 'data-gradient-type', 'data-effect-3d', 'data-font-type'] // Add font type
+      attributeFilter: ['data-shape-type', 'data-shadow-type', 'data-gradient-type', 'data-font-type'] // effect-3d removed
     });
 
     return () => observer.disconnect();
@@ -114,26 +124,6 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
       case 'none': return '';
       default: return 'shadow-theme-classic';
     }
-  };
-  
-  // Helper to get correct 3D effect style based on custom override
-  const get3DEffectClass = () => {
-    // Check for custom 3D effect override
-    const custom3DEffect = customOverrides.effect3d;
-    if (custom3DEffect) {
-      switch (custom3DEffect) {
-        case 'raised': return 'effect-3d-raised';
-        case 'pressed': return 'effect-3d-pressed';
-        case 'floating': return 'effect-3d-floating';
-        case 'beveled': return 'effect-3d-beveled';
-        case 'extruded': return 'effect-3d-extruded';
-        case 'none': return 'effect-3d-none';
-        default: return '';
-      }
-    }
-    
-    // Default to no 3D effect if not specified
-    return '';
   };
   
   // Helper to get gradient style based on theme or custom override
@@ -198,74 +188,172 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
     const shapeClass = getShapeClass();
     const shadowClass = getShadowClass();
     const gradientClass = getGradientClass();
-    const effect3DClass = get3DEffectClass();
     
     if (primary) {
       return `${gradientClass && gradientClass !== '' 
         ? gradientClass : 'bg-accent1'} 
-        text-canvas ${shapeClass} ${shadowClass} ${effect3DClass} px-8 py-3 font-bold transition-all 
+        text-canvas ${shapeClass} ${shadowClass} px-8 py-3 font-bold transition-all 
         duration-300 hover:scale-105 btn-touch-ripple`;
     }
     
     return `bg-surface text-text border-accent3 hover:border-accent1 hover:bg-surface-hover 
-      ${shapeClass} ${effect3DClass} border px-8 py-3 font-bold transition-all duration-300`;
+      ${shapeClass} border px-8 py-3 font-bold transition-all duration-300`;
   };
 
   // Generate card class based on theme
   const generateCardClass = () => {
     const shapeClass = getShapeClass();
     const shadowClass = getShadowClass();
-    const effect3DClass = get3DEffectClass();
     
-    return `bg-surface hover:bg-surface-hover ${shapeClass} ${shadowClass} ${effect3DClass} 
+    return `bg-surface hover:bg-surface-hover ${shapeClass} ${shadowClass} 
       p-6 transition-all duration-300 ${theme.effects.backdrop ? 'backdrop-blur-subtle' : ''}`;
   };
 
   return (
-    <div className={getFontClass()}>
-      {/* Header & Navigation */}
-      <header className="fixed top-0 right-0 left-0 z-40">
-        <div className={`bg-canvas/70 ${theme.effects.backdrop ? 'backdrop-blur-subtle' : ''} 
-          border-border container mx-auto flex items-center justify-between border-b px-6 py-4`}>
-          <h1 className="text-accent1 text-2xl font-bold">Aura</h1>
-          <nav className="hidden items-center space-x-8 md:flex">
-            <a href="#marketplace" className="hover:text-accent3 transition-colors duration-300">Marketplace</a>
-            <a href="#events" className="hover:text-accent4 transition-colors duration-300">Events</a>
-            <a href="#about" className="hover:text-accent5 transition-colors duration-300">Our Ethos</a>
-          </nav>
-          <div className="flex items-center space-x-4">
+    <div className={getFontClass()} style={{ position: 'relative', minHeight: '100vh' }}>
+      {/* --- Top gradient blob (global, fixed) --- */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl pointer-events-none sm:-top-80"
+        style={{ pointerEvents: 'none' }}
+      >
+        <div
+          className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          style={{
+            backgroundImage: `linear-gradient(135deg, ${theme.colors.accent1} 0%, ${theme.colors.accent2} 100%)`,
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
+      {/* Header & Mobile Menu */}
+      <header className="absolute inset-x-0 top-0 z-50">
+        <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <a href="#" className="-m-1.5 p-1.5 flex items-center">
+              <span className="sr-only">Aura</span>
+              <h1 className="text-accent1 text-2xl font-bold">Aura</h1>
+            </a>
+          </div>
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(true)}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-accent1"
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="size-6" aria-hidden="true" />
+            </button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-12">
+            {navigation.map((item) => (
+              <a key={item.name} href={item.href} className="text-sm font-semibold text-accent1 hover:text-accent3 transition-colors">
+                {item.name}
+              </a>
+            ))}
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-x-4">
             <button className={generateButtonClass()}>
               Sign In
             </button>
-            {/* Theme Settings Button */}
             <button
               onClick={onSidebarToggle}
-              className={`bg-surface text-text border-accent3 hover:border-accent1 hover:bg-surface-hover ${getShapeClass()} ${get3DEffectClass()} border px-8 py-3 font-bold transition-all duration-300 burger-menu`}
+              className={`bg-surface text-text border-accent3 hover:border-accent1 hover:bg-surface-hover ${getShapeClass()} border px-8 py-3 font-bold transition-all duration-300 burger-menu`}
               aria-label="Toggle theme settings"
             >
               Change Theme
             </button>
           </div>
-        </div>
+        </nav>
+        <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+          <div className="fixed inset-0 z-50" />
+          <DialogPanel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas p-6 sm:max-w-sm sm:ring-1 sm:ring-border">
+            <div className="flex items-center justify-between">
+              <a href="#" className="-m-1.5 p-1.5 flex items-center">
+                <span className="sr-only">Aura</span>
+                <h1 className="text-accent1 text-2xl font-bold">Aura</h1>
+              </a>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="-m-2.5 rounded-md p-2.5 text-accent1"
+              >
+                <span className="sr-only">Close menu</span>
+                <XMarkIcon className="size-6" aria-hidden="true" />
+              </button>
+            </div>
+            <div className="mt-6 flow-root">
+              <div className="-my-6 divide-y divide-border">
+                <div className="space-y-2 py-6">
+                  {navigation.map((item) => (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-accent1 hover:bg-surface-hover"
+                    >
+                      {item.name}
+                    </a>
+                  ))}
+                </div>
+                <div className="py-6 flex flex-col gap-2">
+                  <button className={generateButtonClass()}>
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => { setMobileMenuOpen(false); onSidebarToggle(); }}
+                    className={`bg-surface text-text border-accent3 hover:border-accent1 hover:bg-surface-hover ${getShapeClass()} border px-8 py-3 font-bold transition-all duration-300 burger-menu`}
+                    aria-label="Toggle theme settings"
+                  >
+                    Change Theme
+                  </button>
+                </div>
+              </div>
+            </div>
+          </DialogPanel>
+        </Dialog>
       </header>
 
-      <main className="pt-24">
-        {/* Hero Section */}
-        <section className="container mx-auto px-6 py-20 text-center">
-          <h2 className="mb-4 text-5xl leading-tight font-light">
-            A Boutique Space for the <span className="text-accent1 font-medium">Exploratory</span>
-          </h2>
-          <p className="text-text/80 mx-auto mb-8 max-w-3xl text-xl">
-            Discover a curated marketplace and gender-open events built on a foundation of safety, consent, and body-positive values.
-          </p>
-          <div className="flex justify-center space-x-4">
-            <button className={generateButtonClass()}>
-              Explore Marketplace
-            </button>
-            <button className={generateButtonClass(false)}>
-              Find Events
-            </button>
+      {/* Main Content */}
+      <main className="relative isolate px-0 pt-32 lg:px-0 bg-canvas min-h-screen">
+        {/* Hero Section - Tailwind UI style */}
+        <section>
+          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56 text-center px-6">
+            <h2 className="text-balance text-5xl font-extrabold tracking-tight text-accent1 sm:text-7xl mb-6">
+              A Boutique Space for the{' '}
+              <span
+                className="font-extrabold bg-gradient-to-r from-accent1 via-accent3 to-accent2 bg-clip-text text-transparent"
+                style={{ WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}
+              >
+                Exploratory
+              </span>
+            </h2>
+            <p className="mt-8 text-lg font-medium text-text/80 sm:text-xl max-w-2xl mx-auto">
+              Discover a curated marketplace and gender-open events built on a foundation of safety, consent, and body-positive values.
+            </p>
+            <div className="mt-10 flex items-center justify-center gap-x-6">
+              <button className={generateButtonClass()}>
+                Explore Marketplace
+              </button>
+              <button className={generateButtonClass(false)}>
+                Find Events
+              </button>
+            </div>
           </div>
+      {/* --- Bottom gradient blob (global, fixed) --- */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-x-0 bottom-0 -z-10 transform-gpu overflow-hidden blur-3xl pointer-events-none"
+        style={{ pointerEvents: 'none' }}
+      >
+        <div
+          className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          style={{
+            backgroundImage: `linear-gradient(135deg, ${theme.colors.accent1} 0%, ${theme.colors.accent2} 100%)`,
+            clipPath:
+              'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+          }}
+        />
+      </div>
         </section>
 
         {/* Curated Products Section */}
@@ -304,13 +392,13 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
               }
             ].map((product, index) => (
               <div key={index} className={`${generateCardClass()} group`}>
-                <div className={`relative overflow-hidden h-48 mb-4 bg-accent2 rounded-theme`}>
+                <div className={`relative overflow-hidden h-72 mb-4 bg-accent2 rounded-theme`}>
                   <img 
                     src={product.image}
                     alt={product.alt}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    style={{ maxHeight: '18rem' }}
                     onError={(e) => {
-                      // Fallback to placeholder if image doesn't exist
                       e.target.style.display = 'none';
                       e.target.nextElementSibling.style.display = 'flex';
                     }}
@@ -323,7 +411,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
                 <p className="text-text-muted text-sm mb-3">{product.description}</p>
                 <div className="flex justify-between items-center">
                   <span className="text-accent1 font-bold">{product.price}</span>
-                  <button className={`text-xs px-4 py-2 ${getShapeClass()} ${getShadowClass()} ${get3DEffectClass()} border border-accent1 text-accent1 hover:scale-95 transition-transform duration-300`}>
+                  <button className={`text-xs px-4 py-2 ${getShapeClass()} ${getShadowClass()} border border-accent1 text-accent1 hover:scale-95 transition-transform duration-300`}>
                     Add to Cart
                   </button>
                 </div>
@@ -333,7 +421,6 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
         </section>
 
         {/* Events Section */}
-
         <section id="events" className={`py-16 ${theme.effects.pattern !== 'none' ? `pattern-${theme.effects.pattern}` : ''}`}>
           <div className="container mx-auto px-6">
             <h3 className="mb-10 text-center text-3xl font-light">Upcoming Events</h3>
@@ -357,11 +444,12 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
                 }
               ].map((event, index) => (
                 <div key={index} className={`${generateCardClass()} group`}>
-                  <div className={`relative overflow-hidden h-48 mb-4 bg-accent2 rounded-theme`}>
+                  <div className={`relative overflow-hidden h-72 mb-4 bg-accent2 rounded-theme`}>
                     <img
                       src={event.banner}
                       alt={event.title + ' banner'}
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      style={{ maxHeight: '18rem' }}
                       onError={(e) => {
                         e.target.style.display = 'none';
                         e.target.nextElementSibling.style.display = 'flex';
@@ -380,7 +468,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
                     <p className="text-text-muted"><span className="text-text">Location:</span> {event.location}</p>
                   </div>
                   <p className="text-text-muted text-sm mb-3">{event.description}</p>
-                  <button className={`w-full text-center py-2 ${getShapeClass()} ${getShadowClass()} ${get3DEffectClass()} border border-accent1 text-accent1 hover:scale-95 transition-transform duration-300`}>
+                  <button className={`w-full text-center py-2 ${getShapeClass()} ${getShadowClass()} border border-accent1 text-accent1 hover:scale-95 transition-transform duration-300`}>
                     Reserve a Spot
                   </button>
                 </div>
@@ -398,7 +486,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
             {['Consent-First', 'Body Positivity', 'Gender Inclusive', 'Quality Assured'].map((value, index) => (
-              <span key={index} className={`inline-block px-4 py-2 ${getShapeClass()} ${get3DEffectClass()} bg-surface text-accent3 border border-accent3`}>
+              <span key={index} className={`inline-block px-4 py-2 ${getShapeClass()} bg-surface text-accent3 border border-accent3`}>
                 {value}
               </span>
             ))}
@@ -406,6 +494,7 @@ const AuraWebsite = ({ currentTheme, onSidebarToggle }) => {
         </section>
       </main>
 
+      {/* Footer */}
       <footer className="bg-surface border-t border-border py-10">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row justify-between items-center">
